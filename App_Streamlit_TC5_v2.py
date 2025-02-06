@@ -3,9 +3,12 @@ import joblib
 import pandas as pd
 import numpy as np
 import tensorflow as tf
+import sklearn
 
 # Carregar o modelo
 model = tf.keras.models.load_model('modelo_bolsaestudo.h5')
+model2 = joblib.load('modelo_destaque.pkl')
+vectorizer = joblib.load('vectorizer.pkl')
 
 # Configurar o título da aplicação
 st.title("Previsão de Bolsa de Estudos")
@@ -35,3 +38,28 @@ if st.button("🔍 Simular Bolsa de Estudos"):
     st.subheader(resultado)
     st.write("Saída do modelo:", predicao)
 
+# Título da aplicação
+st.title("📝 Análise de Sentimento")
+
+st.write("Digite um texto e veja se o sentimento é positivo ou negativo!")
+
+# Criar caixa de texto para entrada do usuário
+texto = st.text_area("Digite seu texto aqui:", "")
+
+# Botão de previsão
+if st.button("🔍 Analisar Sentimento"):
+    if texto.strip() == "":
+        st.warning("Por favor, insira um texto para análise.")
+    else:
+        # Transformar o texto em uma matriz para o modelo (dependendo do pré-processamento usado)
+        #dados = np.array([texto], dtype=object) 
+        dados_transformados = vectorizer.transform([texto]) 
+        # Fazer previsão
+        predicao = model2.predict(dados_transformados)
+        
+        # Interpretar resultado
+        resultado = "😊 Positivo!" if predicao[0] == 1 else "☹️ Negativo!"
+        
+        # Exibir o resultado
+        st.subheader(f"Resultado: {resultado}")
+        st.write(f"Valor bruto da predição: {predicao}")
