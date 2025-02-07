@@ -4,6 +4,10 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import sklearn
+import re
+import unidecode
+from nltk.corpus import stopwords
+from nltk.stem import SnowballStemmer
 
 # Carregar o modelo
 model = tf.keras.models.load_model('modelo_bolsaestudo.h5')
