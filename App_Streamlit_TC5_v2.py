@@ -43,23 +43,19 @@ if st.button("🔍 Simular Bolsa de Estudos"):
     st.write("Saída do modelo:", predicao)
 
 
-stop_words = set(stopwords.words("portuguese"))
-stemmer = SnowballStemmer("portuguese")
-
 def preprocess_text(text):
     """Pré-processa o texto removendo acentos, pontuações e aplicando stemming."""
     text = text.lower()
     text = unidecode.unidecode(text)
     text = re.sub(r'[^a-zA-Z\s]', '', text)
     words = text.split()
-    words = [stemmer.stem(word) for word in words if word not in stop_words]
     return ' '.join(words)
 
-# Interface do Streamlit
+#Interface do Streamlit
 st.title("Análise de Sentimento 💬")
 st.write("Digite uma frase para analisar se o sentimento é positivo ou negativo.")
 
-# Caixa de entrada para texto
+#Caixa de entrada para texto
 input_text = st.text_area("Digite sua frase aqui:")
 
 if st.button("Analisar"):
@@ -70,9 +66,9 @@ if st.button("Analisar"):
         frase_processada = preprocess_text(input_text)
         frase_tfidf = vectorizer.transform([frase_processada])
 
-# Fazer previsão
+#Fazer previsão
         predicao = model2.predict(frase_tfidf)[0]
         sentimento = "😊 Positivo" if predicao == 1 else "😞 Negativo"
 
-# Exibir resultado
+#Exibir resultado
         st.success(f"Resultado: {sentimento}")
