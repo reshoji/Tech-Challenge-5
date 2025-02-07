@@ -42,13 +42,20 @@ if st.button("🔍 Simular Bolsa de Estudos"):
     st.write("Saída do modelo:", predicao)
 
 
+#Tentar carregar o modelo e o vetorizador
+try:
+    vectorizer = joblib.load("vectorizer_tfidf.pkl")
+    model2 = joblib.load("random_forest_model.pkl")
+except FileNotFoundError:
+    st.error("Erro: Arquivos do modelo não encontrados. Verifique os caminhos dos arquivos!")
+
+#Função para pré-processamento de texto
 def preprocess_text(text):
-    """Pré-processa o texto removendo acentos, pontuações e aplicando stemming."""
+    """Pré-processa o texto removendo acentos e pontuações."""
     text = text.lower()
     text = unidecode.unidecode(text)
     text = re.sub(r'[^a-zA-Z\s]', '', text)
-    words = text.split()
-    return ' '.join(words)
+    return text
 
 #Interface do Streamlit
 st.title("Análise de Sentimento 💬")
