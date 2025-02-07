@@ -55,7 +55,7 @@ if st.button("🔍 Analisar Sentimento"):
         #dados = np.array([texto], dtype=object) 
         dados_transformados = vectorizer.transform([texto]) 
         # Fazer previsão
-        predicao = model2.predict(dados_transformados)
+        predicao = model2.predict(dados_transformados)[0]
         
         # Interpretar resultado
         resultado = "😊 Positivo!" if predicao[0] == 1 else "☹️ Negativo!"
