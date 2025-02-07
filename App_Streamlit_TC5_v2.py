@@ -57,7 +57,7 @@ except FileNotFoundError:
     st.error("Erro: Arquivos do modelo não encontrados. Verifique os caminhos dos arquivos!")
 
 # Definir o caminho personalizado para os dados do nltk
-nltk.data.path.append(r"C:\Users\Eryck de Noronha\Documents\GitHub\Datathon_fase_5__pycache__\nltk_data")
+nltk.data.path.append(r"https://github.com/reshoji/Tech-Challenge-5/tree/main/stopwords")
 
 # Configurar Stopwords e Stemmer
 stop_words = set(stopwords.words("portuguese"))
