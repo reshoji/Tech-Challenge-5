@@ -6,6 +6,10 @@ import tensorflow as tf
 import sklearn
 import re
 import unidecode
+import nltk
+import os
+from nltk.corpus import stopwords
+from nltk.stem import SnowballStemmer
 
 
 # Carregar o modelo
@@ -42,6 +46,9 @@ if st.button("🔍 Simular Bolsa de Estudos"):
     st.write("Saída do modelo:", predicao)
 
 
+
+
+
 #Tentar carregar o modelo e o vetorizador
 try:
     vectorizer = joblib.load("vectorizer.pkl")
@@ -49,13 +56,21 @@ try:
 except FileNotFoundError:
     st.error("Erro: Arquivos do modelo não encontrados. Verifique os caminhos dos arquivos!")
 
-#Função para pré-processamento de texto
+# Definir o caminho personalizado para os dados do nltk
+nltk.data.path.append(r"C:\Users\Eryck de Noronha\Documents\GitHub\Datathon_fase_5__pycache__\nltk_data")
+
+# Configurar Stopwords e Stemmer
+stop_words = set(stopwords.words("portuguese"))
+stemmer = SnowballStemmer("portuguese")
+
 def preprocess_text(text):
-    """Pré-processa o texto removendo acentos e pontuações."""
+    """Pré-processa o texto removendo acentos, pontuações e aplicando stemming."""
     text = text.lower()
     text = unidecode.unidecode(text)
     text = re.sub(r'[^a-zA-Z\s]', '', text)
-    return text
+    words = text.split()
+    words = [stemmer.stem(word) for word in words if word not in stop_words]
+    return ' '.join(words)
 
 #Interface do Streamlit
 st.title("Análise de Sentimento 💬")
