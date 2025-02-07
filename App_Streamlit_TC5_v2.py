@@ -10,8 +10,8 @@ import unidecode
 
 # Carregar o modelo
 model = tf.keras.models.load_model('modelo_bolsaestudo.h5')
-model2 = joblib.load('modelo_destaque.pkl')
-vectorizer = joblib.load('vectorizer.pkl')
+#model2 = joblib.load('modelo_destaque.pkl')
+#vectorizer = joblib.load('vectorizer.pkl')
 
 # Configurar o título da aplicação
 st.title("Previsão de Bolsa de Estudos")
@@ -44,8 +44,8 @@ if st.button("🔍 Simular Bolsa de Estudos"):
 
 #Tentar carregar o modelo e o vetorizador
 try:
-    vectorizer = joblib.load("vectorizer_tfidf.pkl")
-    model2 = joblib.load("random_forest_model.pkl")
+    vectorizer = joblib.load("vectorizer.pkl")
+    model2 = joblib.load("modelo_destaque.pkl")
 except FileNotFoundError:
     st.error("Erro: Arquivos do modelo não encontrados. Verifique os caminhos dos arquivos!")
 
