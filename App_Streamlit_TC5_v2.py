@@ -4,6 +4,14 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import sklearn
+import nltk
+from nltk.corpus import stopwords
+import string
+
+# Baixar stopwords (apenas uma vez)
+nltk.download('stopwords')
+# Definir stopwords em português
+stop_words = set(stopwords.words('portuguese'))
 
 # Carregar o modelo
 model = tf.keras.models.load_model('modelo_bolsaestudo.h5')
@@ -46,14 +54,25 @@ st.write("Digite um texto e veja se o sentimento é positivo ou negativo!")
 # Criar caixa de texto para entrada do usuário
 texto = st.text_area("Digite seu texto aqui:", "")
 
+def preprocessar_texto(texto):
+    """Remove stopwords, pontuações e transforma o texto em minúsculas"""
+    texto = texto.lower()  # Converter para minúsculas
+    texto = texto.translate(str.maketrans('', '', string.punctuation))  # Remover pontuação
+    palavras = texto.split()  # Separar palavras
+    palavras_filtradas = [palavra for palavra in palavras if palavra not in stop_words]  # Remover stopwords
+    return " ".join(palavras_filtradas)  # Rejuntar palavras limpas
+    
 # Botão de previsão
 if st.button("🔍 Analisar Sentimento"):
     if texto.strip() == "":
         st.warning("Por favor, insira um texto para análise.")
     else:
         # Transformar o texto em uma matriz para o modelo (dependendo do pré-processamento usado)
-        #dados = np.array([texto], dtype=object) 
-        dados_transformados = vectorizer.transform([texto]) 
+        # Aplicar pré-processamento no texto
+        texto_processado = preprocessar_texto(texto)
+        
+        # Transformar o texto processado para o formato esperado pelo modelo
+        dados_transformados = vectorizer.transform([texto_processado]) 
         # Fazer previsão
         predicao = model2.predict(dados_transformados)
         
