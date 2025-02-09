@@ -4,18 +4,11 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import sklearn
-import re
-import unidecode
-import nltk
-import os
-from nltk.corpus import stopwords
-from nltk.stem import SnowballStemmer
-
 
 # Carregar o modelo
 model = tf.keras.models.load_model('modelo_bolsaestudo.h5')
-#model2 = joblib.load('modelo_destaque.pkl')
-#vectorizer = joblib.load('vectorizer.pkl')
+model2 = joblib.load('modelo_destaque.pkl')
+vectorizer = joblib.load('vectorizer.pkl')
 
 # Configurar o título da aplicação
 st.title("Previsão de Bolsa de Estudos")
@@ -45,51 +38,28 @@ if st.button("🔍 Simular Bolsa de Estudos"):
     st.subheader(resultado)
     st.write("Saída do modelo:", predicao)
 
+# Título da aplicação
+st.title("📝 Análise de Sentimento")
 
+st.write("Digite um texto e veja se o sentimento é positivo ou negativo!")
 
+# Criar caixa de texto para entrada do usuário
+texto = st.text_area("Digite seu texto aqui:", "")
 
-
-#Tentar carregar o modelo e o vetorizador
-try:
-    vectorizer = joblib.load("vectorizer.pkl")
-    model2 = joblib.load("modelo_destaque.pkl")
-except FileNotFoundError:
-    st.error("Erro: Arquivos do modelo não encontrados. Verifique os caminhos dos arquivos!")
-
-# Definir o caminho personalizado para os dados do nltk
-nltk.data.path.append(r"https://github.com/reshoji/Tech-Challenge-5/tree/main/stopwords")
-
-# Configurar Stopwords e Stemmer
-stop_words = set(stopwords.words("portuguese"))
-stemmer = SnowballStemmer("portuguese")
-
-def preprocess_text(text):
-    """Pré-processa o texto removendo acentos, pontuações e aplicando stemming."""
-    text = text.lower()
-    text = unidecode.unidecode(text)
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
-    words = text.split()
-    words = [stemmer.stem(word) for word in words if word not in stop_words]
-    return ' '.join(words)
-
-#Interface do Streamlit
-st.title("Análise de Sentimento 💬")
-st.write("Digite uma frase para analisar se o sentimento é positivo ou negativo.")
-
-#Caixa de entrada para texto
-input_text = st.text_area("Digite sua frase aqui:")
-
-if st.button("Analisar"):
-    if input_text.strip() == "":
-        st.warning("Por favor, digite uma frase para análise.")
+# Botão de previsão
+if st.button("🔍 Analisar Sentimento"):
+    if texto.strip() == "":
+        st.warning("Por favor, insira um texto para análise.")
     else:
-        # Processar o texto
-        frase_processada = preprocess_text(input_text)
-        frase_tfidf = vectorizer.transform([frase_processada])
-
-#Fazer previsão
-        predicao = model2.predict(frase_tfidf)[0]
-        sentimento = "😊 Positivo" if predicao == 1 else "😞 Negativo"
-
-#Exibir resultado
-        st.success(f"Resultado: {sentimento}")
+        # Transformar o texto em uma matriz para o modelo (dependendo do pré-processamento usado)
+        #dados = np.array([texto], dtype=object) 
+        dados_transformados = vectorizer.transform([texto]) 
+        # Fazer previsão
+        predicao = model2.predict(dados_transformados)
+        
+        # Interpretar resultado
+        resultado = "😊 Positivo!" if predicao[0] == 1 else "☹️ Negativo!"
+        
+        # Exibir o resultado
+        st.subheader(f"Resultado: {resultado}")
+        st.write(f"Valor bruto da predição: {predicao}")
