@@ -9,14 +9,14 @@ from nltk.corpus import stopwords
 import string
 
 # Baixar stopwords (apenas uma vez)
-nltk.download('stopwords')
+#nltk.download('stopwords')
 # Definir stopwords em português
-stop_words = set(stopwords.words('portuguese'))
+#stop_words = set(stopwords.words('portuguese'))
 
 # Carregar o modelo
 model = tf.keras.models.load_model('modelo_bolsaestudo.h5')
-model2 = joblib.load('modelo_destaque.pkl')
-vectorizer = joblib.load('vectorizer.pkl')
+#model2 = joblib.load('modelo_destaque.pkl')
+#vectorizer = joblib.load('vectorizer.pkl')
 
 # Configurar o título da aplicação
 st.title("Previsão de Bolsa de Estudos")
