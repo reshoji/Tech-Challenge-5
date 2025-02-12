@@ -44,41 +44,42 @@ if st.button("🔍 Simular Bolsa de Estudos"):
     # Mostrar resultado
     resultado = "✅ Aprovado para Bolsa!" if predicao[0][0] >= 0.97 else "❌ Não Aprovado para Bolsa."
     st.subheader(resultado)
-    st.write("Saída do modelo:", predicao)
+    # st.write("Saída do modelo:", predicao)
 
 # Título da aplicação
-st.title("📝 Análise de Sentimento")
+#st.title("📝 Análise de Sentimento")
 
-st.write("Digite um texto e veja se o sentimento é positivo ou negativo!")
+#st.write("Digite um texto e veja se o sentimento é positivo ou negativo!")
 
 # Criar caixa de texto para entrada do usuário
-texto = st.text_area("Digite seu texto aqui:", "")
+#texto = st.text_area("Digite seu texto aqui:", "")
 
-def preprocessar_texto(texto):
-    """Remove stopwords, pontuações e transforma o texto em minúsculas"""
-    texto = texto.lower()  # Converter para minúsculas
-    texto = texto.translate(str.maketrans('', '', string.punctuation))  # Remover pontuação
-    palavras = texto.split()  # Separar palavras
-    palavras_filtradas = [palavra for palavra in palavras if palavra not in stop_words]  # Remover stopwords
-    return " ".join(palavras_filtradas)  # Rejuntar palavras limpas
+#def preprocessar_texto(texto):
+   # """Remove stopwords, pontuações e transforma o texto em minúsculas"""
+    #texto = texto.lower()  # Converter para minúsculas
+    #texto = texto.translate(str.maketrans('', '', string.punctuation))  # Remover pontuação
+    #palavras = texto.split()  # Separar palavras
+    #palavras_filtradas = [palavra for palavra in palavras if palavra not in stop_words]  # Remover stopwords
+    #return " ".join(palavras_filtradas)  # Rejuntar palavras limpas
+
     
 # Botão de previsão
-if st.button("🔍 Analisar Sentimento"):
-    if texto.strip() == "":
-        st.warning("Por favor, insira um texto para análise.")
-    else:
+#if st.button("🔍 Analisar Sentimento"):
+    #if texto.strip() == "":
+        #st.warning("Por favor, insira um texto para análise.")
+    #else:
         # Transformar o texto em uma matriz para o modelo (dependendo do pré-processamento usado)
         # Aplicar pré-processamento no texto
-        texto_processado = preprocessar_texto(texto)
+        #texto_processado = preprocessar_texto(texto)
         
         # Transformar o texto processado para o formato esperado pelo modelo
-        dados_transformados = vectorizer.transform([texto_processado]) 
+        #dados_transformados = vectorizer.transform([texto_processado]) 
         # Fazer previsão
-        predicao = model2.predict(dados_transformados)
+        #predicao = model2.predict(dados_transformados)
         
         # Interpretar resultado
-        resultado = "😊 Positivo!" if predicao[0] == 1 else "☹️ Negativo!"
+        #resultado = "😊 Positivo!" if predicao[0] == 1 else "☹️ Negativo!"
         
         # Exibir o resultado
-        st.subheader(f"Resultado: {resultado}")
-        st.write(f"Valor bruto da predição: {predicao}")
+        #st.subheader(f"Resultado: {resultado}")
+        #st.write(f"Valor bruto da predição: {predicao}")
