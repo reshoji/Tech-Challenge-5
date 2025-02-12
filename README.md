@@ -1,4 +1,7 @@
-# Tech-Challenge-5
+# Tech Challenge 5 - FIAP
+
+## Erych Noronha RM 353540
+## Renan Shoji RM 354116
 
 # Análise e Predição de Indicação de Bolsa de Estudos – ONG Passos Mágicos  
 
@@ -19,10 +22,10 @@ Para facilitar a interação com o modelo preditivo, foi criada uma aplicação 
 🔗 **Acesse a aplicação aqui:** [tech-challenge-5-bolsaestudo.streamlit.app](https://tech-challenge-5-bolsaestudo.streamlit.app/)  
 
 ## 📂 Estrutura do Repositório  
-- `dashboard/` → Arquivos do **Power BI** (.pdf e .pbix)  
-- `notebook/` → Análise exploratória e modelagem preditiva (**Jupyter Notebook**)  
-- `model/` → Código e treinamento do modelo de Machine Learning  
-- `app/` → Código da aplicação em **Streamlit**  
+- `Dashboard - Passos Mágicos` → Arquivos do **Power BI** (.pdf e .pbix)  
+- `tc5_datathon` → Análise exploratória e modelagem preditiva (**Jupyter Notebook**)  
+- `modelo_*` → Modelo de Machine Learning  (.h5 e .pkl)
+- `App_Streamlit_2` → Código da aplicação em **Streamlit**  
 
 ## 📌 Tecnologias Utilizadas  
 - **Power BI** para análise e visualização de dados  
