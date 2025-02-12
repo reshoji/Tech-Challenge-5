@@ -1,7 +1,7 @@
 # Tech Challenge 5 - FIAP
 
-## Erych Noronha RM 353540
-## Renan Shoji RM 354116
+### Erych Noronha RM 353540
+### Renan Shoji RM 354116
 
 # Análise e Predição de Indicação de Bolsa de Estudos – ONG Passos Mágicos  
 
